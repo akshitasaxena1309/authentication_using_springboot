@@ -1,5 +1,5 @@
 // ==================== API CONFIG ====================
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL =  window.location.origin;
 let otpEmail = '';
 
 // ==================== LOADING INDICATOR WITH RIPPLE EFFECT ====================

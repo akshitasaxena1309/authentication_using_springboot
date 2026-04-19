@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP • SecureAuth</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+
+<div class="container">
+    <div class="brand-badge">
+        <div class="logo-icon">🔐</div>
+        <div class="logo-text">SecureAuth</div>
+    </div>
+
+    <div class="auth-box verify-box">
+        <div class="auth-header">
+            <div class="otp-animation">
+                <div class="mail-icon">📧</div>
+                <div class="wave"></div>
+            </div>
+            <h2>Verify Your Identity</h2>
+            <p class="subtitle">We've sent a 6-digit verification code to</p>
+            <div class="email-badge">
+                <span class="email-icon">📨</span>
+                <strong id="userEmail" class="user-email" th:text="${email}">user@example.com</strong>
+            </div>
+        </div>
+
+        <form id="verifyOtpForm">
+            <div class="form-group otp-group">
+                <label for="otp">Enter Verification Code</label>
+                <div class="otp-input-container">
+                    <input type="text" id="otp" name="otp" maxlength="6" required
+                           placeholder="000000" autocomplete="one-time-code"
+                           inputmode="numeric" pattern="[0-9]{6}" class="otp-input">
+                    <div class="otp-separator"></div>
+                </div>
+                <div class="input-focus-effect"></div>
+            </div>
+
+            <button type="submit" class="btn-primary">
+                <span class="btn-text">Verify & Sign In</span>
+                <span class="btn-icon">✓</span>
+            </button>
+        </form>
+
+        <div id="message" class="message"></div>
+
+        <div class="auth-footer">
+            <div class="resend-section">
+                <p class="resend-text">Didn't receive the code?</p>
+                <a href="#" onclick="resendOtp(); return false;" class="resend-link">
+                    <span class="resend-icon">⟳</span>
+                    Resend OTP
+                </a>
+                <span class="resend-timer" id="resendTimer"></span>
+            </div>
+            <div class="auth-link">
+                <a href="/login-page">
+                    <span class="back-icon">←</span>
+                    Back to Login
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="security-badge">
+        <span class="badge-icon">⏱️</span>
+        <span>OTP expires in 10 minutes</span>
+        <span class="separator">•</span>
+        <span>One-time use only</span>
+    </div>
+</div>
+
+<script src="/js/auth.js"></script>
+<script>
+    // Get email from URL parameter or session storage
+    const urlParams = new URLSearchParams(window.location.search);
+    const email = urlParams.get('email') || sessionStorage.getItem('otp_email');
+
+    // Display email on page
+    const userEmailEl = document.getElementById('userEmail');
+    if (userEmailEl && email) {
+        userEmailEl.textContent = email;
+    }
+
+    // Auto-focus OTP input and auto-submit on complete
+    document.addEventListener('DOMContentLoaded', function() {
+        const otpInput = document.getElementById('otp');
+        if (otpInput) {
+            otpInput.focus();
+
+            // Auto-submit when 6 digits are entered
+            otpInput.addEventListener('input', function(e) {
+                if (this.value.length === 6 && /^\d+$/.test(this.value)) {
+                    document.getElementById('verifyOtpForm').dispatchEvent(new Event('submit'));
+                }
+            });
+        }
+    });
+
+    // Animated particles
+    document.addEventListener('DOMContentLoaded', function() {
+        const particles = document.querySelectorAll('.particle');
+        particles.forEach(function(particle) {
+            const duration = Math.random() * 20 + 10;
+            const delay = Math.random() * 5;
+            particle.style.animation = 'float ' + duration + 's infinite ease-in-out ' + delay + 's';
+        });
+    });
+</script>
+</body>
+</html>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard • SecureAuth</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-body">
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-icon">🔐</div>
+            <div class="logo-text">SecureAuth</div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active">
+                <span class="nav-icon">📊</span>
+                <span>Dashboard</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="user-info-sidebar">
+                <div class="user-avatar" id="userAvatar">
+                    <span>👤</span>
+                </div>
+                <div class="user-details">
+                    <div class="user-name" id="sidebarUsername"></div>
+                    <div class="user-status">Online</div>
+                </div>
+            </div>
+            <button id="logoutBtn" class="logout-btn">
+                <span class="logout-icon">🚪</span>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="top-header">
+            <div class="header-left">
+                <h1>Welcome back, <span id="username" class="username-highlight"></span></h1>
+                <p class="header-date" id="currentDate"></p>
+            </div>
+            <div class="header-right">
+                <div class="notification-bell">
+                    <span class="bell-icon">🔔</span>
+                    <span class="notification-dot"></span>
+                </div>
+                <div class="header-user">
+                    <div class="user-avatar-small" id="headerAvatar">
+                        <span>👤</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-info">
+                    <h3>Login Status</h3>
+                    <p class="stat-value"><span class="status-badge active">Active</span></p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔐</div>
+                <div class="stat-info">
+                    <h3>Auth Method</h3>
+                    <p class="stat-value" id="authMethod">Loading...</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🛡️</div>
+                <div class="stat-info">
+                    <h3>Security Level</h3>
+                    <p class="stat-value">High</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-info">
+                    <h3>Session Time</h3>
+                    <p class="stat-value" id="sessionTime">0 min</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Content -->
+        <div class="dashboard-grid">
+            <!-- Welcome Section -->
+            <div class="dashboard-card welcome-card">
+                <div class="card-header">
+                    <h3>🎉 Welcome to Your Dashboard</h3>
+                </div>
+                <div class="card-body">
+                    <p class="greeting" id="greetingMessage"></p>
+                    <p>You are now securely logged into your account using JWT authentication.</p>
+                    <div class="security-info">
+                        <div class="info-item">
+                            <span class="info-icon">✓</span>
+                            <span>JWT Token Active</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">✓</span>
+                            <span>Session Encrypted</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">✓</span>
+                            <span>2FA Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Testing Section -->
+            <div class="dashboard-card api-card">
+                <div class="card-header">
+                    <h3>🚀 API Testing Console</h3>
+                    <span class="card-badge">Protected Endpoint</span>
+                </div>
+                <div class="card-body">
+                    <p>Test the secure /hello API endpoint with your JWT token.</p>
+                    <button id="testHelloBtn" class="btn-secondary api-btn">
+                        <span class="btn-icon">🔐</span>
+                        <span>Call /hello API</span>
+                    </button>
+                    <div id="apiResponse" class="api-response"></div>
+                </div>
+            </div>
+
+            <!-- Account Info -->
+            <div class="dashboard-card info-card">
+                <div class="card-header">
+                    <h3>📋 Account Information</h3>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <span class="info-label">Authentication Type:</span>
+                        <span class="info-value">JWT Token Based</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Token Storage:</span>
+                        <span class="info-value">LocalStorage (Encrypted)</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Last Login:</span>
+                        <span class="info-value" id="lastLogin">Just now</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Device:</span>
+                        <span class="info-value">Secure Browser</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="dashboard-card activity-card">
+                <div class="card-header">
+                    <h3>🔄 Recent Activity</h3>
+                </div>
+                <div class="card-body">
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">🔐</div>
+                            <div class="activity-details">
+                                <p>Successful Login</p>
+                                <small>Just now</small>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">✓</div>
+                            <div class="activity-details">
+                                <p>Token Generated</p>
+                                <small>Just now</small>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">🌐</div>
+                            <div class="activity-details">
+                                <p>Session Started</p>
+                                <small>Just now</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="/js/auth.js"></script>
+<script>
+    // Set current date
+    const dateElement = document.getElementById('currentDate');
+    if (dateElement) {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateElement.textContent = new Date().toLocaleDateString(undefined, options);
+    }
+
+    // Session timer
+    let startTime = Date.now();
+    setInterval(() => {
+        const sessionTime = document.getElementById('sessionTime');
+        if (sessionTime) {
+            const elapsed = Math.floor((Date.now() - startTime) / 60000);
+            sessionTime.textContent = `${elapsed} min`;
+        }
+    }, 60000);
+
+    // Set greeting based on time
+    const greetingElement = document.getElementById('greetingMessage');
+    if (greetingElement) {
+        const hour = new Date().getHours();
+        let greeting = '';
+        if (hour < 12) greeting = 'Good morning! ☀️';
+        else if (hour < 17) greeting = 'Good afternoon! 🌤️';
+        else greeting = 'Good evening! 🌙';
+        greetingElement.textContent = greeting;
+    }
+
+    // Set sidebar username
+    const username = localStorage.getItem('username');
+    const sidebarUsername = document.getElementById('sidebarUsername');
+    if (sidebarUsername && username) {
+        sidebarUsername.textContent = username;
+    }
+
+    // Animated particles for dashboard
+    const particles = document.createElement('div');
+    particles.className = 'dashboard-particles';
+    for (let i = 0; i < 10; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'dashboard-particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 10 + 's';
+        particle.style.animationDuration = Math.random() * 20 + 10 + 's';
+        particles.appendChild(particle);
+    }
+    document.body.appendChild(particles);
+</script>
+</body>
+</html>

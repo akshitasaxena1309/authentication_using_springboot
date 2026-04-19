@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureLogin • Authentication System</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+
+<div class="container">
+    <div class="brand-badge">
+        <div class="logo-icon">🔐</div>
+        <div class="logo-text">SecureAuth</div>
+    </div>
+
+    <div class="auth-box">
+        <div class="auth-header">
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Sign in to continue to your account</p>
+        </div>
+
+        <div class="login-tabs">
+            <button class="tab-btn active" onclick="showTab('password-login', event)">
+                <span class="tab-icon">🔑</span>
+                <span>Password Login</span>
+            </button>
+            <button class="tab-btn" onclick="showTab('otp-login', event)">
+                <span class="tab-icon">📧</span>
+                <span>OTP Login</span>
+            </button>
+        </div>
+
+        <!-- Password Login Form -->
+        <div id="password-login" class="tab-content active">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUsername">
+                        <span class="label-icon">👤</span>
+                        Username
+                    </label>
+                    <input type="text" id="loginUsername" name="username" required
+                           placeholder="Enter your username" autocomplete="username">
+                    <div class="input-focus-effect"></div>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">
+                        <span class="label-icon">🔒</span>
+                        Password
+                    </label>
+                    <div class="password-wrapper">
+                        <input type="password" id="loginPassword" name="password" required
+                               placeholder="Enter your password" autocomplete="current-password">
+                        <button type="button" class="toggle-password" onclick="togglePassword('loginPassword')">
+                            👁️
+                        </button>
+                    </div>
+                    <div class="input-focus-effect"></div>
+                </div>
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="rememberMe">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                    <a href="#" class="forgot-link">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <span class="btn-text">Sign In</span>
+                    <span class="btn-icon">→</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- OTP Login Form -->
+        <div id="otp-login" class="tab-content">
+            <form id="otpRequestForm">
+                <div class="form-group">
+                    <label for="otpEmail">
+                        <span class="label-icon">📧</span>
+                        Email Address
+                    </label>
+                    <input type="email" id="otpEmail" name="email" required
+                           placeholder="Enter your registered email" autocomplete="email">
+                    <div class="input-focus-effect"></div>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <span class="btn-text">Send OTP</span>
+                    <span class="btn-icon">📨</span>
+                </button>
+            </form>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <div class="auth-footer">
+            <p class="auth-link">
+                Don't have an account?
+                <a href="/signup-page">
+                    <span>Create Account</span>
+                    <span class="link-arrow">→</span>
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <div class="security-badge">
+        <span class="badge-icon">🛡️</span>
+        <span>256-bit SSL Encrypted</span>
+        <span class="separator">•</span>
+        <span>GDPR Compliant</span>
+    </div>
+</div>
+
+<script src="/js/auth.js"></script>
+<script>
+    function showTab(tabName, event) {
+        // Hide all tab contents
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        // Remove active class from all buttons
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        // Show selected tab
+        document.getElementById(tabName).classList.add('active');
+        event.target.closest('.tab-btn').classList.add('active');
+
+        // Clear message when switching tabs
+        const msg = document.getElementById('message');
+        if (msg) {
+            msg.textContent = '';
+            msg.className = 'message';
+        }
+    }
+
+    function togglePassword(inputId) {
+        const input = document.getElementById(inputId);
+        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+        input.setAttribute('type', type);
+    }
+
+    // Animated particles
+    document.addEventListener('DOMContentLoaded', () => {
+        const particles = document.querySelectorAll('.particle');
+        particles.forEach(particle => {
+            const duration = Math.random() * 20 + 10;
+            const delay = Math.random() * 5;
+            particle.style.animation = `float ${duration}s infinite ease-in-out ${delay}s`;
+        });
+    });
+</script>
+</body>
+</html>
